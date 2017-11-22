@@ -31,4 +31,11 @@
   block
   [disabled]="!f.valid"> Add Item</button>
 </form>
+
+<ion-list>
+  <ion-item *ngFor="let ingredient of listIngredients; let pos = index" (click)="onDeleteItem(pos)">
+    <h3>{{ ingredient.name }} ({{ ingredient.amount }})</h3>
+  </ion-item>
+</ion-list>
+
 </ion-content>
