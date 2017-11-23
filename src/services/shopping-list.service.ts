@@ -1,4 +1,4 @@
-import { IngredientModel } from "../models/ingredients.model";
+import { IngredientModel } from "../models/ingredient.model";
 
 export class ShoppingListService {
   private ingredients: IngredientModel[] = [];
