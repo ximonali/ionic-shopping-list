@@ -13,3 +13,6 @@ Ionic + Angular (Shopping List)
 3. Install dependencies: `> npm install`
 4. Start the app: `> ionic serve`
 5. View in browser at: `http://localhost:8100/`
+
+# Demo
+[shopping-list](http://simongg.com/ionic/shopping-list)
