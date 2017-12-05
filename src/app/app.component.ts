@@ -7,6 +7,9 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { ViewChild } from '@angular/core';
 
+import firebase from 'firebase';
+import { AuthService } from '../services/auth';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -15,9 +18,26 @@ export class MyApp {
   tabsPage:any = TabsPage;
   signinPage: any = SigninPage;
   signupPage: any = SignupPage
-@ViewChild('nav') nav: NavController;
+  isAuthenticated = false;
+  @ViewChild('nav') nav: NavController;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuController: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar,
+              splashScreen: SplashScreen,
+              private menuController: MenuController,
+              private authService: AuthService) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDM0TSwtLcob_fylkQNf8q8vH6CFzEYvoc",
+      authDomain: "ionic-shopping-list-d0d5a.firebaseapp.com"
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user){
+        this.isAuthenticated = true;
+        this.nav.setRoot(this.tabsPage);
+      }else{
+        this.isAuthenticated = false;
+        this.nav.setRoot(this.signinPage);
+      }
+    });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -32,7 +52,8 @@ export class MyApp {
   }
 
   onLogout(){
-
+    this.authService.logout();
+    this.menuController.close();
   }
 
 }
